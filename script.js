@@ -1,6 +1,7 @@
 let array = createArray(75);
 let arraySorted = false;
 let timeTaken = 0, comparisons = 0, arrayWrites = 0, secondaryWrites = 0;
+let totalSleepTime = 0;
 
 const arraySizeSlider = document.querySelector('#array-size-slider');
 arraySizeSlider.value = 75;
@@ -23,10 +24,12 @@ startSortingButton.addEventListener('click', async () => {
 
 	disableButtons(true);
 
-	timeTaken = 0, comparisons = 0, arrayWrites = 0;
+	timeTaken = 0, comparisons = 0, arrayWrites = 0, secondaryWrites = 0;
+	totalSleepTime = 0;
 
 	const sortInput = document.querySelector('.sort-input:checked');
 
+	const startTime = Date.now();
 	if (sortInput.value === "1") {
 		await bubbleSort();
 	}
@@ -42,6 +45,9 @@ startSortingButton.addEventListener('click', async () => {
 	else if (sortInput.value === "5") {
 		await radixSort();
 	}
+	const endTime = Date.now();
+	
+	timeTaken = endTime - startTime - totalSleepTime;
 
 	updateArrayDisplay('#00AA88', '#00AA88');
 	updateInfo();
@@ -90,7 +96,7 @@ function updateArrayDisplay(baseColor, changeColor) {
 
 function updateInfo() {
 	const timeTakenDiv = document.querySelector('#time-taken');
-	timeTakenDiv.textContent = `Time Taken: ${timeTaken}`;
+	timeTakenDiv.textContent = `Time Taken: ${timeTaken}ms`;
 
 	const comparisonDiv = document.querySelector('#comparisons');
 	comparisonDiv.textContent = `Comparisons: ${comparisons}`;
@@ -124,26 +130,41 @@ function getLargest() {
 }
 
 async function bubbleSort() {
+	let startSleepTime = 0, endSleepTime = 0;
+
+	let swapped;
+
 	for (let i = 0; i < array.length - 1; ++i) {
+		swapped = false;
 		for (let j = 0; j < array.length - 1 - i; ++j) {
 			if (array[j] > array[j+1]) {
 				const temp = array[j];
 				array[j] = array[j+1];
 				array[j+1] = temp;
 
+				swapped = true;
+
 				arrayWrites += 2;
 
 				updateArrayDisplay('#3388CC', '#FFDD88');
 				updateInfo();
 
+				startSleepTime = Date.now();
 				await sleep(2000 / (array.length * 2));
+				endSleepTime = Date.now();
+				totalSleepTime += endSleepTime - startSleepTime;
 			}
 			comparisons++;
+		}
+		if (!swapped) {
+			break;
 		}
 	}
 }
 
 async function selectionSort() {
+	let startSleepTime = 0, endSleepTime = 0;
+
 	let min_index, swap;
 
 	for (let i = 0; i < array.length - 1; ++i) {
@@ -168,12 +189,17 @@ async function selectionSort() {
 			updateArrayDisplay('#3388CC', '#FFDD88');
 			updateInfo();
 
+			startSleepTime = Date.now();
 			await sleep(20000 / (array.length + 25));
+			endSleepTime = Date.now();
+			totalSleepTime += endSleepTime - startSleepTime;
 		}
 	}
 }
 
 async function insertionSort() {
+	let startSleepTime = 0, endSleepTime = 0;
+
 	for (let i = 1; i < array.length; i++) {
 		if (array[i] < array[i-1]) {
 
@@ -188,7 +214,10 @@ async function insertionSort() {
 				updateArrayDisplay('#3388CC', '#FFDD88');
 				updateInfo();
 
+				startSleepTime = Date.now();
 				await sleep(4000 / (array.length * 2));
+				endSleepTime = Date.now();
+				totalSleepTime += endSleepTime - startSleepTime;
 			}
 		}
 		comparisons++;
@@ -208,6 +237,8 @@ async function mergeSort(start, end) {
 }
 
 async function merge(start, mid, end) {
+	let startSleepTime = 0, endSleepTime = 0;
+
 	const n1 = mid - start + 1;
 	const n2 = end - mid;
 
@@ -243,7 +274,10 @@ async function merge(start, mid, end) {
 		updateArrayDisplay('#3388CC', '#FFDD88');
 		updateInfo();
 
+		startSleepTime = Date.now();
 		await sleep(10000 / (array.length * 2));
+		endSleepTime = Date.now();
+		totalSleepTime += endSleepTime - startSleepTime;
 	}
 
 	while (i < n1) {
@@ -253,7 +287,11 @@ async function merge(start, mid, end) {
 
 		updateArrayDisplay('#3388CC', '#FFDD88');
 		updateInfo();
+
+		startSleepTime = Date.now();
 		await sleep(10000 / (array.length * 2));
+		endSleepTime = Date.now();
+		totalSleepTime += endSleepTime - startSleepTime;
 	}
 	while (j < n2) {
 		array[k++] = rightArray[j++];
@@ -262,7 +300,11 @@ async function merge(start, mid, end) {
 
 		updateArrayDisplay('#3388CC', '#FFDD88');
 		updateInfo();
+
+		startSleepTime = Date.now();
 		await sleep(10000 / (array.length * 2));
+		endSleepTime = Date.now();
+		totalSleepTime += endSleepTime - startSleepTime;
 	}
 }
 
@@ -310,7 +352,11 @@ async function radixSort() {
 
 			updateArrayDisplay('#3388CC', '#FFDD88');
 			updateInfo();
+
+			startSleepTime = Date.now();
 			await sleep(10000 / (array.length * 2));
+			endSleepTime = Date.now();
+			totalSleepTime += endSleepTime - startSleepTime;
 		}
 	}
-} 
+}
