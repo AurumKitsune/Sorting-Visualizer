@@ -1,0 +1,56 @@
+body {
+	height: 100vh;
+	margin: 0px;
+}
+
+.header button {
+	height: fit-content;
+	padding: 8px;
+	margin-left: 16px;
+	background-color: #8844CC;
+	border: 2px solid white;
+	border-radius: 32px;
+	color: white;
+	font-weight: bold;
+}
+
+.header {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	background-color: #6622AA;
+	color: white;
+}
+
+.section {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.sorting-buttons {
+	display: flex;
+	overflow: hidden;
+	border: 2px solid white;
+	border-radius: 32px;
+}
+
+.sort-input {
+	display: none;
+}
+
+.sort-label {
+	padding: 8px 12px;
+	background: #6622AA;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.sort-label:not(:last-of-type) {
+	border-right: 2px solid white;
+}
+
+.sort-input:checked + .sort-label {
+	background: #8844CC;
+}
