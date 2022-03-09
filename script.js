@@ -9,7 +9,7 @@ arraySizeSlider.oninput = function() {
 
 const generateArrayButton = document.querySelector('#generate-array');
 generateArrayButton.addEventListener('click', () => {
-	createArray(arraySizeSlider.value);
+	array = createArray(arraySizeSlider.value);
 });
 
 const startSortingButton = document.querySelector('#start-sort');
@@ -47,6 +47,22 @@ function createArray(size) {
 	}
 
 	return arr;
+}
+
+function updateArrayDisplay(baseColor, changeColor) {
+	const arrayElements = document.querySelectorAll('.array-element');
+
+	for (let i = 0; i < array.length; ++i) {
+		let before = arrayElements[i].style.height;
+		arrayElements[i].style.height = `${10 + array[i] * 2}px`;
+
+		if (before === arrayElements[i].style.height) {
+			arrayElements[i].style.backgroundColor = baseColor;
+		}
+		else {
+			arrayElements[i].style.backgroundColor = changeColor;
+		}
+	}
 }
 
 function bubbleSort() {
