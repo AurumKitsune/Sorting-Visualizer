@@ -15,22 +15,31 @@ generateArrayButton.addEventListener('click', () => {
 });
 
 const startSortingButton = document.querySelector('#start-sort');
-startSortingButton.addEventListener('click', () => {
+startSortingButton.addEventListener('click', async () => {
 	if (arraySorted) {
 		return;
 	}
 
+	disableButtons(true);
+
 	const sortInput = document.querySelector('.sort-input:checked');
 
 	if (sortInput.value === "1") {
-		bubbleSort();
+		await bubbleSort();
 	}
 	else if (sortInput.value === "2") {
-		selectionSort();
+		await selectionSort();
 	}
 	else if (sortInput.value === "3") {
-		insertionSort();
+		await insertionSort();
 	}
+	else if (sortInput.value === "4") {
+		await mergeSort(0, array.length - 1);
+	}
+
+	updateArrayDisplay('#00AA88', '#00AA88');
+	arraySorted = true;
+	disableButtons(false);
 });
 
 function createArray(size) {
@@ -81,8 +90,6 @@ function sleep(ms) {
 }
 
 async function bubbleSort() {
-	disableButtons(true);
-
 	for (let i = 0; i < array.length - 1; ++i) {
 		for (let j = 0; j < array.length - 1 - i; ++j) {
 			if (array[j] > array[j+1]) {
@@ -96,15 +103,9 @@ async function bubbleSort() {
 			}
 		}
 	}
-
-	updateArrayDisplay('#00AA88', '#00AA88');
-	arraySorted = true;
-	disableButtons(false);
 }
 
 async function selectionSort() {
-	disableButtons(true);
-
 	let min_index, swap;
 
 	for (let i = 0; i < array.length - 1; ++i) {
@@ -128,15 +129,9 @@ async function selectionSort() {
 			await sleep(20000 / (array.length + 25));
 		}
 	}
-
-	updateArrayDisplay('#00AA88', '#00AA88');
-	arraySorted = true;
-	disableButtons(false);
 }
 
 async function insertionSort() {
-	disableButtons(true);
-	
 	for (let i = 1; i < array.length; i++) {
 		if (array[i] < array[i-1]) {
 
@@ -151,8 +146,58 @@ async function insertionSort() {
 			}
 		}
 	}
+}
 
-	updateArrayDisplay('#00AA88', '#00AA88');
-	arraySorted = true;
-	disableButtons(false);
+async function mergeSort(start, end) {
+	if (start >= end) {
+		return;
+	}
+	else {
+		const mid = start + Math.floor((end - start) / 2);
+		await mergeSort(start, mid);
+		await mergeSort(mid + 1, end);
+		await merge(start, mid, end);
+	}
+}
+
+async function merge(start, mid, end) {
+	const n1 = mid - start + 1;
+	const n2 = end - mid;
+
+	let leftArray = new Array(n1);
+	let rightArray = new Array(n2);
+
+	for (let i = 0; i < n1; ++i) {
+		leftArray[i] = array[start + i];
+	}
+	for (let i = 0; i < n2; ++i) {
+		rightArray[i] = array[mid + 1 + i];
+	}
+
+	let i = 0, j = 0, k = start;
+
+	while (i < n1 && j < n2){
+		if (leftArray[i] < rightArray[j]) {
+			array[k++] = leftArray[i++];
+		}
+		else {
+			array[k++] = rightArray[j++];
+		}
+
+		updateArrayDisplay('#3388CC', '#FFDD88');
+		await sleep(10000 / (array.length * 2));
+	}
+
+	while (i < n1) {
+		array[k++] = leftArray[i++];
+
+		updateArrayDisplay('#3388CC', '#FFDD88');
+		await sleep(10000 / (array.length * 2));
+	}
+	while (j < n2) {
+		array[k++] = rightArray[j++];
+
+		updateArrayDisplay('#3388CC', '#FFDD88');
+		await sleep(5000 / (array.length * 2));
+	}
 }
