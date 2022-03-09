@@ -5,6 +5,12 @@ body {
 	margin: 0px;
 }
 
+.center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 .header {
 	display: flex;
 	justify-content: space-around;
@@ -14,7 +20,7 @@ body {
 	text-align: center;
 }
 
-.header h1 {
+.header > * {
 	flex: 1;
 }
 
@@ -32,13 +38,6 @@ body {
 .range-slider {
 	display: flex;
 	flex-direction: column;
-}
-
-.center {
-	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .sorting-buttons {
@@ -72,11 +71,26 @@ body {
 	margin-right: 32px;
 }
 
-.array-display {
+.section {
+	flex: 1;
 	display: flex;
-	width: 800px;
-	height: 500px;
-	border: 2px solid black;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.array-display {
+	flex: 1;
+	width: 80%;
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-around;
+}
+
+.array-element {
+	flex: 1;
+	margin: 0px 1px;
+	background-color: blue;
 }
 
 footer {
