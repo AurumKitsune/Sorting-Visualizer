@@ -36,6 +36,9 @@ startSortingButton.addEventListener('click', async () => {
 	else if (sortInput.value === "4") {
 		await mergeSort(0, array.length - 1);
 	}
+	else if (sortInput.value === "5") {
+		await radixSort();
+	}
 
 	updateArrayDisplay('#00AA88', '#00AA88');
 	arraySorted = true;
@@ -87,6 +90,18 @@ function disableButtons(bool) {
 
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function getLargest() {
+	let largest = array[0];
+
+	for (let i = 1; i < array.length; ++i) {
+		if (array[i] > largest) {
+			largest = array[i];
+		}
+	}
+
+	return largest;
 }
 
 async function bubbleSort() {
@@ -198,6 +213,46 @@ async function merge(start, mid, end) {
 		array[k++] = rightArray[j++];
 
 		updateArrayDisplay('#3388CC', '#FFDD88');
-		await sleep(5000 / (array.length * 2));
+		await sleep(10000 / (array.length * 2));
 	}
 }
+
+async function radixSort() {
+	let largest = getLargest();
+
+	for (let i = 1; Math.floor(largest / i) > 0; i *= 10) {
+		let newArray = new Array(array.length);
+		
+		let sumArray = new Array(10);
+		for (let j = 0; j < 10; ++j) {
+			sumArray[j] = 0;
+		}
+
+		// find the number of each mod value
+		for (let j = 0; j < array.length; ++j) {
+			const modValue = Math.floor(array[j] / i) % 10;
+			sumArray[modValue]++;
+		}
+
+		// summify the array
+		for (let j = 1; j < 10; ++j) {
+			sumArray[j] += sumArray[j - 1];
+		}
+
+		// move values into the right place in newArray
+		for (let j = array.length - 1; j >= 0; --j) {
+			const modValue = Math.floor(array[j] / i) % 10;
+			
+			const position = --sumArray[modValue];
+			newArray[position] = array[j];
+		}
+
+		// move newArray back to the original array
+		for (let j = 0; j < array.length; ++j) {
+			array[j] = newArray[j];
+
+			updateArrayDisplay('#3388CC', '#FFDD88');
+			await sleep(10000 / (array.length * 2));
+		}
+	}
+} 
