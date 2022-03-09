@@ -71,11 +71,18 @@ function updateArrayDisplay(baseColor, changeColor) {
 	}
 }
 
+function disableButtons(bool) {
+	generateArrayButton.disabled = bool;
+	startSortingButton.disabled = bool;
+}
+
 function sleep(ms) {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function bubbleSort() {
+	disableButtons(true);
+
 	for (let i = 0; i < array.length - 1; ++i) {
 		for (let j = 0; j < array.length - 1 - i; ++j) {
 			if (array[j] > array[j+1]) {
@@ -92,9 +99,12 @@ async function bubbleSort() {
 
 	updateArrayDisplay('#00AA88', '#00AA88');
 	arraySorted = true;
+	disableButtons(false);
 }
 
 async function selectionSort() {
+	disableButtons(true);
+
 	let min_index, swap;
 
 	for (let i = 0; i < array.length - 1; ++i) {
@@ -121,9 +131,12 @@ async function selectionSort() {
 
 	updateArrayDisplay('#00AA88', '#00AA88');
 	arraySorted = true;
+	disableButtons(false);
 }
 
 async function insertionSort() {
+	disableButtons(true);
+	
 	for (let i = 1; i < array.length; i++) {
 		if (array[i] < array[i-1]) {
 
@@ -141,4 +154,5 @@ async function insertionSort() {
 
 	updateArrayDisplay('#00AA88', '#00AA88');
 	arraySorted = true;
+	disableButtons(false);
 }
