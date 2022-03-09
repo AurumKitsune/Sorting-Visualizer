@@ -3,16 +3,19 @@
 		<meta charset="UTF-8">
 		<title>Sorting Visualizer</title>
 		<link rel="stylesheet" href="style.css"/>
+		<script src='script.js' defer></script>
 	</head>
 	<body>
 		<div class="header">
-			<div class="section">
-				<input type="range" min="5" max="300" id="array-size-slider"/>
-				<label class="array-size" for="array-size-slider">100</label>
+			<div class="center">
+				<div class="range-slider">
+					<input type="range" min="5" max="300" id="array-size-slider"/>
+					<label class="array-size-label" for="array-size-slider">150</label>
+				</div>
 				<button class="generate-array">Generate New Array</button>
 			</div>
 			<h1>Sorting Visualizer</h1>
-			<div class="section">
+			<div class="center">
 				<div class="sorting-buttons">
 					<input type="radio" name="sort-select" value="1" class="sort-input" id="bubble-sort" checked="1"/>
 					<label class="sort-label" for="bubble-sort">Bubble Sort</label>
@@ -24,7 +27,7 @@
 				<button class="start-sort">Start Sorting</button>
 			</div>
 		</div>
-		<div class="section">
+		<div class="section center">
 			<div class="array-display"></div>
 		</div>
 		<footer>
