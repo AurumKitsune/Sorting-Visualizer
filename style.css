@@ -15,7 +15,7 @@ body {
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-	background-color: #6622AA;
+	background-color: #8800CC;
 	color: white;
 	text-align: center;
 }
@@ -28,11 +28,12 @@ body {
 	height: fit-content;
 	padding: 8px;
 	margin-left: 16px;
-	background: #9955CC;
+	background: #AA33DD;
 	border: 2px solid white;
 	border-radius: 32px;
 	color: white;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 .range-slider {
@@ -53,7 +54,7 @@ body {
 
 .sort-label {
 	padding: 8px 12px;
-	background: #6622AA;
+	background-color: #8800CC;
 	color: white;
 	font-weight: bold;
 	cursor: pointer;
@@ -64,7 +65,7 @@ body {
 }
 
 .sort-input:checked + .sort-label {
-	background: #9955CC;
+	background: #AA33DD;
 }
 
 .sorting-data {
@@ -90,14 +91,14 @@ body {
 .array-element {
 	flex: 1;
 	margin: 0px 1px;
-	background-color: blue;
+	background-color: #3388CC;
 }
 
 footer {
 	display: flex;
 	justify-content: space-around;
 	padding: 16px;
-	background-color: #6622AA;
+	background-color: #8800CC;
 	color: white;
 	font-weight: bold;
 }
