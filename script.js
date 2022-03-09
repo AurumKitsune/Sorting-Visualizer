@@ -36,7 +36,7 @@ function createArray(size) {
 
 	let arr = new Array(size);
 
-	for (let i = 0; i < size; i++) {
+	for (let i = 0; i < size; ++i) {
 		arr[i] = Math.floor(Math.random() * 200);
 
 		const arrayElement = document.createElement('div');
@@ -70,8 +70,8 @@ function sleep(ms) {
 }
 
 async function bubbleSort() {
-	for (let i = 0; i < array.length - 1; i++) {
-		for (let j = 0; j < array.length - 1 - i; j++) {
+	for (let i = 0; i < array.length - 1; ++i) {
+		for (let j = 0; j < array.length - 1 - i; ++j) {
 			if (array[j] > array[j+1]) {
 				const temp = array[j];
 				array[j] = array[j+1];
@@ -87,8 +87,32 @@ async function bubbleSort() {
 	updateArrayDisplay('#00AA33', '#00AA33');
 }
 
-function selectionSort() {
-	console.log('selection');
+async function selectionSort() {
+	let min_index, swap;
+
+	for (let i = 0; i < array.length - 1; ++i) {
+		swap = false;
+
+		min_index = i;
+		for (let j = i + 1; j < array.length; ++j) {
+			if (array[j] < array[min_index]) {
+				min_index = j;
+				swap = true;
+			}
+		}
+
+		if (swap) {
+			const temp = array[i];
+			array[i] = array[min_index];
+			array[min_index] = temp;
+
+			updateArrayDisplay('#DD3300', '#DDAA00');
+
+			await sleep(20000 / (array.length + 25));
+		}
+	}
+
+	updateArrayDisplay('#00AA33', '#00AA33');
 }
 
 function insertionSort() {
