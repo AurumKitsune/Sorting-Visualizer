@@ -1,5 +1,6 @@
 let array = createArray(75);
 let arraySorted = false;
+let timeTaken = 0, comparisons = 0, arrayWrites = 0, secondaryWrites = 0;
 
 const arraySizeSlider = document.querySelector('#array-size-slider');
 arraySizeSlider.value = 75;
@@ -22,6 +23,8 @@ startSortingButton.addEventListener('click', async () => {
 
 	disableButtons(true);
 
+	timeTaken = 0, comparisons = 0, arrayWrites = 0;
+
 	const sortInput = document.querySelector('.sort-input:checked');
 
 	if (sortInput.value === "1") {
@@ -41,6 +44,8 @@ startSortingButton.addEventListener('click', async () => {
 	}
 
 	updateArrayDisplay('#00AA88', '#00AA88');
+	updateInfo();
+
 	arraySorted = true;
 	disableButtons(false);
 });
@@ -83,6 +88,20 @@ function updateArrayDisplay(baseColor, changeColor) {
 	}
 }
 
+function updateInfo() {
+	const timeTakenDiv = document.querySelector('#time-taken');
+	timeTakenDiv.textContent = `Time Taken: ${timeTaken}`;
+
+	const comparisonDiv = document.querySelector('#comparisons');
+	comparisonDiv.textContent = `Comparisons: ${comparisons}`;
+
+	const arrayWritesDiv = document.querySelector('#array-writes');
+	arrayWritesDiv.textContent = `Array Writes: ${arrayWrites}`;
+
+	const secondaryWritesDiv = document.querySelector('#secondary-writes');
+	secondaryWritesDiv.textContent = `Secondary Writes: ${secondaryWrites}`;
+}
+
 function disableButtons(bool) {
 	generateArrayButton.disabled = bool;
 	startSortingButton.disabled = bool;
@@ -112,10 +131,14 @@ async function bubbleSort() {
 				array[j] = array[j+1];
 				array[j+1] = temp;
 
+				arrayWrites += 2;
+
 				updateArrayDisplay('#3388CC', '#FFDD88');
+				updateInfo();
 
 				await sleep(2000 / (array.length * 2));
 			}
+			comparisons++;
 		}
 	}
 }
@@ -132,14 +155,18 @@ async function selectionSort() {
 				min_index = j;
 				swap = true;
 			}
+			comparisons++;
 		}
 
 		if (swap) {
 			const temp = array[i];
 			array[i] = array[min_index];
 			array[min_index] = temp;
+				
+			arrayWrites += 2;
 
 			updateArrayDisplay('#3388CC', '#FFDD88');
+			updateInfo();
 
 			await sleep(20000 / (array.length + 25));
 		}
@@ -154,12 +181,17 @@ async function insertionSort() {
 				const temp = array[j];
 				array[j] = array[j-1];
 				array[j-1] = temp;
-			
+				
+				arrayWrites += 2;
+				comparisons++;
+
 				updateArrayDisplay('#3388CC', '#FFDD88');
+				updateInfo();
 
 				await sleep(4000 / (array.length * 2));
 			}
 		}
+		comparisons++;
 	}
 }
 
@@ -184,9 +216,13 @@ async function merge(start, mid, end) {
 
 	for (let i = 0; i < n1; ++i) {
 		leftArray[i] = array[start + i];
+
+		secondaryWrites++;
 	}
 	for (let i = 0; i < n2; ++i) {
 		rightArray[i] = array[mid + 1 + i];
+
+		secondaryWrites++;
 	}
 
 	let i = 0, j = 0, k = start;
@@ -194,25 +230,38 @@ async function merge(start, mid, end) {
 	while (i < n1 && j < n2){
 		if (leftArray[i] < rightArray[j]) {
 			array[k++] = leftArray[i++];
+			
+			arrayWrites++;
 		}
 		else {
 			array[k++] = rightArray[j++];
+			
+			arrayWrites++;
 		}
+		comparisons++;
 
 		updateArrayDisplay('#3388CC', '#FFDD88');
+		updateInfo();
+
 		await sleep(10000 / (array.length * 2));
 	}
 
 	while (i < n1) {
 		array[k++] = leftArray[i++];
 
+		arrayWrites++;
+
 		updateArrayDisplay('#3388CC', '#FFDD88');
+		updateInfo();
 		await sleep(10000 / (array.length * 2));
 	}
 	while (j < n2) {
 		array[k++] = rightArray[j++];
 
+		arrayWrites++;
+
 		updateArrayDisplay('#3388CC', '#FFDD88');
+		updateInfo();
 		await sleep(10000 / (array.length * 2));
 	}
 }
@@ -232,11 +281,15 @@ async function radixSort() {
 		for (let j = 0; j < array.length; ++j) {
 			const modValue = Math.floor(array[j] / i) % 10;
 			sumArray[modValue]++;
+
+			secondaryWrites++;
 		}
 
 		// summify the array
 		for (let j = 1; j < 10; ++j) {
 			sumArray[j] += sumArray[j - 1];
+
+			secondaryWrites++;
 		}
 
 		// move values into the right place in newArray
@@ -245,13 +298,18 @@ async function radixSort() {
 			
 			const position = --sumArray[modValue];
 			newArray[position] = array[j];
+
+			secondaryWrites++;
 		}
 
 		// move newArray back to the original array
 		for (let j = 0; j < array.length; ++j) {
 			array[j] = newArray[j];
+				
+			arrayWrites++;
 
 			updateArrayDisplay('#3388CC', '#FFDD88');
+			updateInfo();
 			await sleep(10000 / (array.length * 2));
 		}
 	}
