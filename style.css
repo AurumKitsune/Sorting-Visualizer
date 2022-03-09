@@ -1,17 +1,8 @@
 body {
+	display: flex;
+	flex-direction: column;
 	height: 100vh;
 	margin: 0px;
-}
-
-.header button {
-	height: fit-content;
-	padding: 8px;
-	margin-left: 16px;
-	background-color: #8844CC;
-	border: 2px solid white;
-	border-radius: 32px;
-	color: white;
-	font-weight: bold;
 }
 
 .header {
@@ -20,11 +11,28 @@ body {
 	align-items: center;
 	background-color: #6622AA;
 	color: white;
+	text-align: center;
+}
+
+.header h1 {
+	flex: 1;
+}
+
+.header button {
+	height: fit-content;
+	padding: 8px;
+	margin-left: 16px;
+	background: #9955CC;
+	border: 2px solid white;
+	border-radius: 32px;
+	color: white;
+	font-weight: bold;
 }
 
 .section {
+	flex: 1;
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	align-items: center;
 }
 
@@ -52,5 +60,25 @@ body {
 }
 
 .sort-input:checked + .sort-label {
-	background: #8844CC;
+	background: #9955CC;
+}
+
+.sorting-data {
+	margin-right: 32px;
+}
+
+.array-display {
+	display: flex;
+	width: 800px;
+	height: 500px;
+	border: 2px solid black;
+}
+
+footer {
+	display: flex;
+	justify-content: space-around;
+	padding: 16px;
+	background-color: #6622AA;
+	color: white;
+	font-weight: bold;
 }
