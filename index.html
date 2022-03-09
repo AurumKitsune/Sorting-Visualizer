@@ -2,16 +2,26 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Sorting Visualizer</title>
+		<link rel="stylesheet" href="style.css"/>
 	</head>
 	<body>
 		<div class="header">
-			<input type="range" min="5" max="500" class="array-size-range"/>
+			<div class="section">
+				<input type="range" min="5" max="500" class="array-size-slider"/>
+				<span class="array-size">100</span>
+				<button class="generate-array">Generate New Array</button>
+			</div>
 			<h1>Sorting Visualizer</h1>
-			<button class="shuffle-array">Shuffle Array</button>
-			<div class="sorting-buttons">
-				<button class="bubble-sort">Bubble Sort</button>
-				<button class="selection-sort">Selection Sort</button>
-				<button class="insertion-sort">Insertion Sort</button>
+			<div class="section">
+				<div class="sorting-buttons">
+					<input type="radio" name="sort-select" value="1" class="sort-input" id="bubble-sort" checked="1"/>
+					<label class="sort-label" for="bubble-sort">Bubble Sort</label>
+					<input type="radio" name="sort-select" value="2" class="sort-input" id="selection-sort"/>
+					<label class="sort-label" for="selection-sort">Selection Sort</label>
+					<input type="radio" name="sort-select" value="3" class="sort-input" id="insertion-sort"/>
+					<label class="sort-label" for="insertion-sort">Insertion Sort</label>
+				</div>
+				<button class="start-sort">Start Sorting</button>
 			</div>
 		</div>
 		<div class="section">
