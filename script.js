@@ -37,11 +37,11 @@ function createArray(size) {
 	let arr = new Array(size);
 
 	for (let i = 0; i < size; i++) {
-		arr[i] = Math.floor(Math.random() * 300);
+		arr[i] = Math.floor(Math.random() * 200);
 
 		const arrayElement = document.createElement('div');
 		arrayElement.classList.add('array-element');
-		arrayElement.setAttribute('style', `height:${10 + arr[i]}px;`);
+		arrayElement.setAttribute('style', `height:${10 + arr[i] * 2}px;`);
 	
 		arrayDisplay.appendChild(arrayElement);
 	}
@@ -65,8 +65,26 @@ function updateArrayDisplay(baseColor, changeColor) {
 	}
 }
 
-function bubbleSort() {
-	console.log('bubble');
+function sleep(ms) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function bubbleSort() {
+	for (let i = 0; i < array.length - 1; i++) {
+		for (let j = 0; j < array.length - 1 - i; j++) {
+			if (array[j] > array[j+1]) {
+				const temp = array[j];
+				array[j] = array[j+1];
+				array[j+1] = temp;
+
+				updateArrayDisplay('#DD3300', '#DDAA00');
+
+				await sleep(2000 / (array.length * 2));
+			}
+		}
+	}
+
+	updateArrayDisplay('#00AA33', '#00AA33');
 }
 
 function selectionSort() {
