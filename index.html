@@ -7,8 +7,8 @@
 	<body>
 		<div class="header">
 			<div class="section">
-				<input type="range" min="5" max="500" class="array-size-slider"/>
-				<span class="array-size">100</span>
+				<input type="range" min="5" max="300" id="array-size-slider"/>
+				<label class="array-size" for="array-size-slider">100</label>
 				<button class="generate-array">Generate New Array</button>
 			</div>
 			<h1>Sorting Visualizer</h1>
@@ -25,12 +25,12 @@
 			</div>
 		</div>
 		<div class="section">
-			<div class="sorting-data">
-				<div class="time-taken">Time Taken:</div>
-				<div class="comparisons">Comparisons:</div>
-				<div class="array-writes">Array Writes:</div>
-			</div>
 			<div class="array-display"></div>
 		</div>
+		<footer>
+			<div class="time-taken">Time Taken:</div>
+			<div class="comparisons">Comparisons:</div>
+			<div class="array-writes">Array Writes:</div>
+		</footer>
 	</body>
 </html>
