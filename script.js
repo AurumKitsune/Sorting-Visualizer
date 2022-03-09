@@ -1,4 +1,5 @@
 let array = createArray(75);
+let arraySorted = false;
 
 const arraySizeSlider = document.querySelector('#array-size-slider');
 arraySizeSlider.value = 75;
@@ -9,11 +10,16 @@ arraySizeSlider.oninput = function() {
 
 const generateArrayButton = document.querySelector('#generate-array');
 generateArrayButton.addEventListener('click', () => {
+	arraySorted = false;
 	array = createArray(arraySizeSlider.value);
 });
 
 const startSortingButton = document.querySelector('#start-sort');
 startSortingButton.addEventListener('click', () => {
+	if (arraySorted) {
+		return;
+	}
+
 	const sortInput = document.querySelector('.sort-input:checked');
 
 	if (sortInput.value === "1") {
@@ -77,14 +83,15 @@ async function bubbleSort() {
 				array[j] = array[j+1];
 				array[j+1] = temp;
 
-				updateArrayDisplay('#DD3300', '#DDAA00');
+				updateArrayDisplay('#3388CC', '#FFDD88');
 
 				await sleep(2000 / (array.length * 2));
 			}
 		}
 	}
 
-	updateArrayDisplay('#00AA33', '#00AA33');
+	updateArrayDisplay('#00AA88', '#00AA88');
+	arraySorted = true;
 }
 
 async function selectionSort() {
@@ -106,15 +113,32 @@ async function selectionSort() {
 			array[i] = array[min_index];
 			array[min_index] = temp;
 
-			updateArrayDisplay('#DD3300', '#DDAA00');
+			updateArrayDisplay('#3388CC', '#FFDD88');
 
 			await sleep(20000 / (array.length + 25));
 		}
 	}
 
-	updateArrayDisplay('#00AA33', '#00AA33');
+	updateArrayDisplay('#00AA88', '#00AA88');
+	arraySorted = true;
 }
 
-function insertionSort() {
-	console.log('insertion');
+async function insertionSort() {
+	for (let i = 1; i < array.length; i++) {
+		if (array[i] < array[i-1]) {
+
+			for (let j = i; j >= 0 && array[j] < array[j-1]; j--) {
+				const temp = array[j];
+				array[j] = array[j-1];
+				array[j-1] = temp;
+			
+				updateArrayDisplay('#3388CC', '#FFDD88');
+
+				await sleep(4000 / (array.length * 2));
+			}
+		}
+	}
+
+	updateArrayDisplay('#00AA88', '#00AA88');
+	arraySorted = true;
 }
