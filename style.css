@@ -29,7 +29,12 @@ body {
 	font-weight: bold;
 }
 
-.section {
+.range-slider {
+	display: flex;
+	flex-direction: column;
+}
+
+.center {
 	flex: 1;
 	display: flex;
 	justify-content: center;
