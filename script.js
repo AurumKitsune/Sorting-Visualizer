@@ -1,11 +1,31 @@
-let array = createArray(150);
+let array = createArray(75);
 
 const arraySizeSlider = document.querySelector('#array-size-slider');
-arraySizeSlider.value = 150;
+arraySizeSlider.value = 75;
 arraySizeSlider.oninput = function() {
 	const arraySizeLabel = document.querySelector('.array-size-label');
 	arraySizeLabel.textContent = this.value;
 }
+
+const generateArrayButton = document.querySelector('#generate-array');
+generateArrayButton.addEventListener('click', () => {
+	createArray(arraySizeSlider.value);
+});
+
+const startSortingButton = document.querySelector('#start-sort');
+startSortingButton.addEventListener('click', () => {
+	const sortInput = document.querySelector('.sort-input:checked');
+
+	if (sortInput.value === "1") {
+		bubbleSort();
+	}
+	else if (sortInput.value === "2") {
+		selectionSort();
+	}
+	else if (sortInput.value === "3") {
+		insertionSort();
+	}
+});
 
 function createArray(size) {
 	const arrayDisplay = document.querySelector('.array-display');
@@ -27,4 +47,16 @@ function createArray(size) {
 	}
 
 	return arr;
+}
+
+function bubbleSort() {
+	console.log('bubble');
+}
+
+function selectionSort() {
+	console.log('selection');
+}
+
+function insertionSort() {
+	console.log('insertion');
 }
